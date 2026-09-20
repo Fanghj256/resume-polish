@@ -1,0 +1,301 @@
+<!-- 全部内容为虚构排版演示，不是任何真实求职者履历。 -->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>示例姓名 — 产品经理</title>
+<style>
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  * {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    color: #1c1c1e;
+    font-family: "PingFang SC", "Noto Sans SC", "Source Han Sans SC",
+                 "Microsoft YaHei", "Hiragino Sans GB", "Segoe UI",
+                 "Helvetica Neue", Arial, sans-serif;
+    font-size: 9.15pt;
+    line-height: 1.42;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 10.5mm 12.5mm 9mm 12.5mm;
+    margin: 0 auto;
+    background: #fff;
+  }
+
+  /* ==== Header ==== */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 7px;
+    border-bottom: 1px solid #1c1c1e;
+    margin-bottom: 9px;
+  }
+  .header-left .name {
+    font-size: 25pt;
+    font-weight: 700;
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 7px;
+  }
+  .header-left .contact {
+    font-size: 9.2pt;
+    color: #1c1c1e;
+    letter-spacing: 0.25px;
+  }
+  .header-left .contact .sep {
+    color: #c8c8c8;
+    margin: 0 8px;
+  }
+  .header-right {
+    text-align: right;
+  }
+  .header-right .label {
+    font-size: 8.7pt;
+    color: #6b6b6f;
+    letter-spacing: 5px;
+    margin-bottom: 3px;
+  }
+  .header-right .target {
+    font-size: 13.2pt;
+    font-weight: 700;
+    color: #1c1c1e;
+  }
+
+  /* ==== Section title (black block + white text) ==== */
+  .section {
+    margin-top: 8px;
+  }
+  .section:first-of-type {
+    margin-top: 0;
+  }
+  .section-title {
+    display: inline-block;
+    background: #1c1c1e;
+    color: #fff;
+    font-size: 10.7pt;
+    font-weight: 700;
+    padding: 3px 10px;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  /* ==== Education one-row table ==== */
+  .edu-row {
+    display: grid;
+    grid-template-columns: 1.35fr 1.35fr 0.7fr 1fr;
+    column-gap: 14px;
+    padding: 1px 0;
+    font-size: 9.4pt;
+  }
+  .edu-row > div:first-child {
+    font-weight: 700;
+  }
+  .edu-row > div:last-child {
+    text-align: right;
+    color: #4a4a4f;
+  }
+
+  /* ==== Item header (project / job) ==== */
+  .item {
+    margin-top: 4px;
+    break-inside: avoid;
+  }
+  .item-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1px;
+  }
+  .item-title {
+    font-size: 10.2pt;
+    font-weight: 700;
+    color: #1c1c1e;
+  }
+  .item-meta {
+    font-size: 8.9pt;
+    color: #4a4a4f;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .item-meta .role {
+    margin-right: 14px;
+    font-weight: 600;
+    color: #1c1c1e;
+  }
+
+  /* ==== Bullet list ==== */
+  ul.bullets {
+    list-style: none;
+    margin: 1px 0 0 0;
+    padding: 0;
+  }
+  ul.bullets li {
+    position: relative;
+    padding-left: 11px;
+    margin: 1px 0;
+    font-size: 9.05pt;
+    line-height: 1.43;
+    color: #1c1c1e;
+    text-align: justify;
+  }
+  ul.bullets li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 3.5px;
+    height: 3.5px;
+    background: #1c1c1e;
+  }
+  ul.bullets li b,
+  ul.bullets li strong {
+    font-weight: 700;
+  }
+
+  /* ==== Honor & skills ==== */
+  .kv-row {
+    display: grid;
+    grid-template-columns: 76px 1fr;
+    column-gap: 10px;
+    padding: 1px 0;
+    font-size: 8.95pt;
+    line-height: 1.4;
+  }
+  .kv-row > div:first-child {
+    font-weight: 700;
+    color: #1c1c1e;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+
+
+
+<div class="header" style="align-items:center">
+  <div class="header-left" style="min-width:0;max-width:calc(100% - 32mm)">
+    <div class="name">示例姓名</div>
+    <div class="contact">电话待填写<span class="sep">|</span>candidate@example.com</div>
+    <div class="target" style="font-size:13.2pt;font-weight:700;margin-top:7px">意向岗位：产品经理</div>
+  </div>
+  <img src="portrait-placeholder.svg" alt="本人商务照" style="width:25.5mm;height:34mm;object-fit:cover;object-position:center;flex-shrink:0">
+</div>
+
+    <div class="section">
+      <div class="section-title">核心优势</div>
+      <ul class="bullets">
+        <li><b>需求发现与验证：</b>能够围绕具体用户任务梳理问题，通过访谈、流程观察和原型测试校验判断，将模糊需求拆解为有范围、有优先级和验收条件的交付计划。</li>
+        <li><b>跨团队推进：</b>围绕设计、研发与业务协作建立清楚的需求说明、里程碑和问题清单；遇到范围或资源变化时说明取舍依据，持续跟进直至完成验收。</li>
+        <li><b>产品反馈迭代：</b>结合实际使用记录和一线反馈定位体验问题，区分事实与推测，推动修订并复查效果。以下全部经历、日期及结果为虚构排版演示。</li>
+      </ul>
+    </div>
+
+
+    <div class="section">
+      <div class="section-title">教育背景</div>
+      <div class="edu-row">
+        <div>示例大学（虚构）</div>
+        <div>信息管理与信息系统</div>
+        <div>本科</div>
+        <div>2019.09—2023.06</div>
+      </div>
+    </div>
+
+
+    <div class="section">
+      <div class="section-title">核心项目经历</div>
+
+      <div class="item">
+        <div class="item-head">
+          <div class="item-title">客户知识库产品改版</div>
+          <div class="item-meta"><span class="role">产品负责人</span>2025.03—2025.08</div>
+        </div>
+        <ul class="bullets">
+          <li><b>用户问题分析：</b>梳理客户查找资料的完整路径，结合访谈与支持记录识别术语不一致、结果难筛选等问题；明确本轮优先解决的任务及暂缓范围，形成需求说明与验收清单。</li>
+          <li><b>方案取舍与验证：</b>提出分类导航、搜索筛选和结果摘要方案，协调设计与研发评估实现成本，通过可交互原型检验操作流程，并将反馈转成可追踪的修改项。</li>
+          <li><b>交付与后续跟进：</b>跟进开发、内容迁移和业务验收，整理使用指引与问题清单；上线后收集一线反馈，区分内容缺失与交互障碍，推进下一轮修订。</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-head">
+          <div class="item-title">移动预约流程优化</div>
+          <div class="item-meta"><span class="role">产品经理</span>2024.08—2024.12</div>
+        </div>
+        <ul class="bullets">
+          <li><b>流程诊断与拆解：</b>梳理预约、确认与变更环节，识别用户重复填写和状态不明确的问题；结合业务约束确定需要保留的信息，建立正常流程及异常处理说明。</li>
+          <li><b>体验方案推进：</b>协调设计与研发完成表单分步、状态提示和变更入口的方案，逐项澄清边界条件及提示内容，维护需求变更清单，避免口头约定遗漏。</li>
+          <li><b>验收与反馈整理：</b>组织业务方按真实使用场景验证预约和变更流程，记录发现的问题及处理状态，完善上线说明，并根据客服反馈持续补充异常场景。</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-head">
+          <div class="item-title">服务工单协同工具</div>
+          <div class="item-meta"><span class="role">产品经理</span>2024.02—2024.06</div>
+        </div>
+        <ul class="bullets">
+          <li><b>业务规则梳理：</b>与一线服务人员共同梳理受理、分派、处理及关闭规则，明确各角色能查看和修改的信息，形成状态流转图、字段说明和异常处理约定。</li>
+          <li><b>优先级与范围管理：</b>将需求拆分为基础受理、责任分派和统计反馈，先验证关键业务闭环；对新增诉求记录影响范围与依赖条件，协调各方确定实施顺序。</li>
+          <li><b>使用支持与迭代：</b>整理操作说明，组织试用并收集实际问题；将重复出现的操作困惑反馈给设计与研发，推动修订后再次验证，维护交付与反馈记录。</li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="section">
+      <div class="section-title">工作经历</div>
+
+      <div class="item">
+        <div class="item-head">
+          <div class="item-title">示例科技有限公司（虚构）</div>
+          <div class="item-meta"><span class="role">产品经理</span>2023.07—至今</div>
+        </div>
+        <ul class="bullets">
+          <li><b>产品规划与交付：</b>围绕客户服务工具的需求分析、方案设计和验收推进开展工作，协调研发、设计及业务人员，保持需求、排期和交付状态一致。</li>
+          <li><b>协同机制维护：</b>维护需求说明、验收清单与反馈记录，推动跨团队问题明确责任人和处理时间；相关项目细节在核心项目区展开。</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-head">
+          <div class="item-title">示例信息服务公司（虚构）</div>
+          <div class="item-meta"><span class="role">产品实习生</span>2022.07—2023.01</div>
+        </div>
+        <ul class="bullets">
+          <li><b>需求整理与支持：</b>协助整理业务需求和用户反馈，参与原型说明、功能测试及问题记录，跟进已确认问题的处理状态，支持正式版本验收。</li>
+          <li><b>基础资料沉淀：</b>整理产品功能说明和常见问题材料，核对内容与实际功能的一致性，将反馈中的遗漏项交给负责人员复核并更新。</li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="section">
+      <div class="section-title">技能与荣誉</div>
+      <div class="kv-row">
+        <div>荣誉证书：</div>
+        <div>以下为虚构排版演示，不代表任何真实求职者的经历或获奖。</div>
+      </div>
+      <div class="kv-row">
+        <div>核心技能：</div>
+        <div>需求分析、用户访谈、原型设计、项目协同、数据分析、文档组织；熟练程度须由实际求职者自行核实。</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

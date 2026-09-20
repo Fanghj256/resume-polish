@@ -1,0 +1,9 @@
+<!-- 用此片段替换 resume.html 中的 .header。照片是用户项目内的相对路径；保持基础 CSS 不变。 -->
+<div class="header" style="align-items:center">
+  <div class="header-left" style="min-width:0;max-width:calc(100% - 32mm)">
+    <div class="name">{{name}}</div>
+    <div class="contact">{{phone}}<span class="sep">|</span>{{email}}</div>
+    <div class="target" style="font-size:13.2pt;font-weight:700;margin-top:7px">意向岗位：{{target_position}}</div>
+  </div>
+  <img src="{{portrait_relative_path}}" alt="本人商务照" style="width:25.5mm;height:34mm;object-fit:cover;object-position:center;flex-shrink:0">
+</div>

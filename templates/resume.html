@@ -1,0 +1,332 @@
+<!--
+  resume.html — resume-builder skill template
+  ──────────────────────────────────────────
+  RULES:
+  - Do NOT modify the <style> block. The CSS is calibrated for A4 single-page.
+  - Replace ONLY the {{placeholders}} in the <body>.
+  - For repeating sections (项目 / 工作), copy the entire <div class="item">…</div>
+    block as needed. The CSS handles spacing automatically.
+  - Bullets must start with `<b>能力标签：</b>` (see ../style-guide.md).
+  - Sort core projects by target relevance, then by recency.
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>{{name}} — {{target_position}}</title>
+<style>
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  * {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    color: #1c1c1e;
+    font-family: "PingFang SC", "Noto Sans SC", "Source Han Sans SC",
+                 "Microsoft YaHei", "Hiragino Sans GB", "Segoe UI",
+                 "Helvetica Neue", Arial, sans-serif;
+    font-size: 9.15pt;
+    line-height: 1.42;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 10.5mm 12.5mm 9mm 12.5mm;
+    margin: 0 auto;
+    background: #fff;
+  }
+
+  /* ==== Header ==== */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 7px;
+    border-bottom: 1px solid #1c1c1e;
+    margin-bottom: 9px;
+  }
+  .header-left .name {
+    font-size: 25pt;
+    font-weight: 700;
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 7px;
+  }
+  .header-left .contact {
+    font-size: 9.2pt;
+    color: #1c1c1e;
+    letter-spacing: 0.25px;
+  }
+  .header-left .contact .sep {
+    color: #c8c8c8;
+    margin: 0 8px;
+  }
+  .header-right {
+    text-align: right;
+  }
+  .header-right .label {
+    font-size: 8.7pt;
+    color: #6b6b6f;
+    letter-spacing: 5px;
+    margin-bottom: 3px;
+  }
+  .header-right .target {
+    font-size: 13.2pt;
+    font-weight: 700;
+    color: #1c1c1e;
+  }
+
+  /* ==== Section title (black block + white text) ==== */
+  .section {
+    margin-top: 8px;
+  }
+  .section:first-of-type {
+    margin-top: 0;
+  }
+  .section-title {
+    display: inline-block;
+    background: #1c1c1e;
+    color: #fff;
+    font-size: 10.7pt;
+    font-weight: 700;
+    padding: 3px 10px;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  /* ==== Education one-row table ==== */
+  .edu-row {
+    display: grid;
+    grid-template-columns: 1.35fr 1.35fr 0.7fr 1fr;
+    column-gap: 14px;
+    padding: 1px 0;
+    font-size: 9.4pt;
+  }
+  .edu-row > div:first-child {
+    font-weight: 700;
+  }
+  .edu-row > div:last-child {
+    text-align: right;
+    color: #4a4a4f;
+  }
+
+  /* ==== Item header (project / job) ==== */
+  .item {
+    margin-top: 4px;
+    break-inside: avoid;
+  }
+  .item-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1px;
+  }
+  .item-title {
+    font-size: 10.2pt;
+    font-weight: 700;
+    color: #1c1c1e;
+  }
+  .item-meta {
+    font-size: 8.9pt;
+    color: #4a4a4f;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .item-meta .role {
+    margin-right: 14px;
+    font-weight: 600;
+    color: #1c1c1e;
+  }
+
+  /* ==== Bullet list ==== */
+  ul.bullets {
+    list-style: none;
+    margin: 1px 0 0 0;
+    padding: 0;
+  }
+  ul.bullets li {
+    position: relative;
+    padding-left: 11px;
+    margin: 1px 0;
+    font-size: 9.05pt;
+    line-height: 1.43;
+    color: #1c1c1e;
+    text-align: justify;
+  }
+  ul.bullets li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 3.5px;
+    height: 3.5px;
+    background: #1c1c1e;
+  }
+  ul.bullets li b,
+  ul.bullets li strong {
+    font-weight: 700;
+  }
+
+  /* ==== Honor & skills ==== */
+  .kv-row {
+    display: grid;
+    grid-template-columns: 76px 1fr;
+    column-gap: 10px;
+    padding: 1px 0;
+    font-size: 8.95pt;
+    line-height: 1.4;
+  }
+  .kv-row > div:first-child {
+    font-weight: 700;
+    color: #1c1c1e;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- ============== HEADER ============== -->
+    <div class="header">
+      <div class="header-left">
+        <div class="name">{{name}}</div>
+        <div class="contact">
+          {{phone}}<span class="sep">|</span>{{email}}
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="label">意 向 岗 位</div>
+        <div class="target">{{target_position}}</div>
+      </div>
+    </div>
+
+    <!-- ============== 核心优势 ==============
+         按真实优势填写 2–3 条；不强制需要比赛或奖项。
+         每条以 <b>标签：</b> 起手。
+    -->
+    <div class="section">
+      <div class="section-title">核心优势</div>
+      <ul class="bullets">
+        <li><b>{{advantage_1_label}}：</b>{{advantage_1_body}}</li>
+        <li><b>{{advantage_2_label}}：</b>{{advantage_2_body}}</li>
+        <li><b>{{advantage_3_label}}：</b>{{advantage_3_body}}</li>
+      </ul>
+    </div>
+
+    <!-- ============== 教育背景 ============== -->
+    <div class="section">
+      <div class="section-title">教育背景</div>
+      <div class="edu-row">
+        <div>{{edu_school}}</div>
+        <div>{{edu_major}}</div>
+        <div>{{edu_degree}}</div>
+        <div>{{edu_period}}</div>
+      </div>
+    </div>
+
+    <!-- ============== 核心项目经历 ==============
+         按岗位相关性排序，同等相关性按时间倒序；按证据调整条数。
+         需要更多/更少项目时，整块复制或删除 <div class="item">…</div>。
+    -->
+    <div class="section">
+      <div class="section-title">核心项目经历</div>
+
+      <div class="item">
+        <div class="item-head">
+          <div class="item-title">{{project_1_title}}</div>
+          <div class="item-meta"><span class="role">{{project_1_role}}</span>{{project_1_period}}</div>
+        </div>
+        <ul class="bullets">
+          <li><b>{{project_1_b1_label}}：</b>{{project_1_b1_body}}</li>
+          <li><b>{{project_1_b2_label}}：</b>{{project_1_b2_body}}</li>
+          <li><b>{{project_1_b3_label}}：</b>{{project_1_b3_body}}</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-head">
+          <div class="item-title">{{project_2_title}}</div>
+          <div class="item-meta"><span class="role">{{project_2_role}}</span>{{project_2_period}}</div>
+        </div>
+        <ul class="bullets">
+          <li><b>{{project_2_b1_label}}：</b>{{project_2_b1_body}}</li>
+          <li><b>{{project_2_b2_label}}：</b>{{project_2_b2_body}}</li>
+          <li><b>{{project_2_b3_label}}：</b>{{project_2_b3_body}}</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-head">
+          <div class="item-title">{{project_3_title}}</div>
+          <div class="item-meta"><span class="role">{{project_3_role}}</span>{{project_3_period}}</div>
+        </div>
+        <ul class="bullets">
+          <li><b>{{project_3_b1_label}}：</b>{{project_3_b1_body}}</li>
+          <li><b>{{project_3_b2_label}}：</b>{{project_3_b2_body}}</li>
+          <li><b>{{project_3_b3_label}}：</b>{{project_3_b3_body}}</li>
+        </ul>
+      </div>
+
+      <!-- 可选第 4 个项目（短项目），通常 2 条 bullets。不需要时整块删除。 -->
+      <div class="item">
+        <div class="item-head">
+          <div class="item-title">{{project_4_title}}</div>
+          <div class="item-meta"><span class="role">{{project_4_role}}</span>{{project_4_period}}</div>
+        </div>
+        <ul class="bullets">
+          <li><b>{{project_4_b1_label}}：</b>{{project_4_b1_body}}</li>
+          <li><b>{{project_4_b2_label}}：</b>{{project_4_b2_body}}</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ============== 工作经历 ============== -->
+    <div class="section">
+      <div class="section-title">工作经历</div>
+
+      <div class="item">
+        <div class="item-head">
+          <div class="item-title">{{job_1_company}}</div>
+          <div class="item-meta"><span class="role">{{job_1_role}}</span>{{job_1_period}}</div>
+        </div>
+        <ul class="bullets">
+          <li><b>{{job_1_b1_label}}：</b>{{job_1_b1_body}}</li>
+          <li><b>{{job_1_b2_label}}：</b>{{job_1_b2_body}}</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-head">
+          <div class="item-title">{{job_2_company}}</div>
+          <div class="item-meta"><span class="role">{{job_2_role}}</span>{{job_2_period}}</div>
+        </div>
+        <ul class="bullets">
+          <li><b>{{job_2_b1_label}}：</b>{{job_2_b1_body}}</li>
+          <li><b>{{job_2_b2_label}}：</b>{{job_2_b2_body}}</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ============== 技能与荣誉 ============== -->
+    <div class="section">
+      <div class="section-title">技能与荣誉</div>
+      <div class="kv-row">
+        <div>荣誉证书：</div>
+        <div>{{honors}}</div>
+      </div>
+      <div class="kv-row">
+        <div>核心技能：</div>
+        <div>{{skills_keywords}}</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

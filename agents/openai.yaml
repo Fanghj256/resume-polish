@@ -1,0 +1,4 @@
+interface:
+  display_name: "同款单页简历"
+  short_description: "根据真实经历和岗位制作黑白单页简历，支持商务照、PDF 和投递文件整理"
+  default_prompt: "请使用 $resume-builder，根据我的真实经历和目标岗位制作黑白单页 A4 简历。"

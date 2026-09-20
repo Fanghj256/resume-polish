@@ -1,0 +1,15 @@
+node_modules/
+.venv/
+__pycache__/
+.DS_Store
+.env
+.env.*
+!.env.example
+output/
+resumes/
+private/
+个人资料/
+简历投递/
+*.pdf
+*.zip
+*.log
