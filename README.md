@@ -6,10 +6,37 @@
 
 ## 怎么用（五步）
 
-1. [下载 Skill ZIP](https://github.com/Fanghj256/resume-polish/releases/latest/download/resume-polish.zip)，解压后得到 `resume-polish` 文件夹。
-2. 把整个文件夹交给能读取文件、执行脚本的 AI Agent，或安装到该 Agent 的 Skills 目录。仅上传 `SKILL.md` 会缺少模板和脚本；普通纯聊天窗口未必能直接导出文件。
-3. **先给它一个资料目录**（比如 `我的简历/`）。你的衣柜、素材、投递件全部放在这里，**不放进 Skill 文件夹**——Skill 可以升级覆盖，个人数据不能混进去。
-4. 然后按下面五步走。第一步做一次，第 2–5 步每投一个岗位跑一遍：
+**装到你的 Agent 里，三选一：**
+
+**① 让 Agent 自己装**（最省事）——直接对它说：
+
+```text
+帮我安装这个 Skill：https://github.com/Fanghj256/resume-polish
+装到你的 Skills 目录，并装好依赖：npm ci、npx playwright install chromium、pip install pymupdf python-docx openpyxl
+```
+
+**② 下载 ZIP**：[下载 Skill ZIP](https://github.com/Fanghj256/resume-polish/releases/latest/download/resume-polish.zip)，解压得到 `resume-polish` 文件夹，放进 Agent 的 Skills 目录。
+
+**③ git clone**：
+
+```bash
+git clone https://github.com/Fanghj256/resume-polish
+# 再放进 Skills 目录，例如 ~/.zcode/skills/resume-polish（各 Agent 的目录不同）
+```
+
+**三条注意**：
+
+- **依赖要装，否则出不了 PDF**：仓库里不含 `node_modules`。导出 PDF 需要 `npm ci` ＋ `npx playwright install chromium`；处理已有 PDF、生成 Word／Excel 还需要 `pip install pymupdf python-docx openpyxl`。装依赖前的部分（建档、拆 JD、打分、写条目）不受影响。命令见 [scripts/README.md](scripts/README.md)。
+- **只给 Agent `SKILL.md` 一个文件不行**：模板和脚本都在文件夹里，缺了就跑不出简历。
+- **网络**：部分网络环境下 `github.com` 时通时断，clone 或下载失败就换个时间、或走代理；ZIP 与 clone 的内容完全一致。
+
+普通纯聊天窗口（不能读写文件、不能执行命令）装不了，只能帮你写内容、出不了 PDF。
+
+### 然后：定一个资料目录，按五步走
+
+**先给它一个资料目录**（比如 `我的简历/`）。衣柜、素材、投递件全部放这里，**不放进 Skill 文件夹**——Skill 会升级覆盖、也可能被公开，个人数据不能混进去。
+
+第一步做一次，第 2–5 步每投一个岗位跑一遍：
 
 | 步骤 | 你要做的 | 你会得到 |
 | --- | --- | --- |
