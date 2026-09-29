@@ -69,3 +69,12 @@ Skill 不含模型、图像生成服务、账号或 API Key。若环境不支持
 **资料目录与 Skill 目录必须分开**：衣柜、素材、投递件属于个人数据，放在你自己指定的资料目录里；Skill 目录只放模板、脚本和文档。Skill 会被升级覆盖、也可能被公开，个人数据混进去就等于同时背上"被覆盖"和"被泄露"两个风险。
 
 照片流程沿用作者独立发布的 `american-business-headshot`，许可保留在 [内置流程目录](references/american-business-headshot/LICENSE)。
+
+## 来源与原创
+
+本仓库是 [xupengli406-del/resume-builder](https://github.com/xupengli406-del/resume-builder) 的二次开发：
+
+- **沿用上游（呈现层）**：A4 单页模板与视觉规范、示例、PDF 导出链路、信息引导追问、商务照流程。
+- **本仓库新增（方法与工具层）**：五步工作流、简历衣柜、提示词库、浏览器编辑层、单页量尺与编辑层冒烟脚本、衣柜→Word／打分表→Excel 导出、目录约定与进度卡。
+
+上游的思路是「上传 JD＋经历 → 生成一份简历」；本仓库先把经历沉淀成可复用的衣柜，之后每投一个岗位只跑后面四步。逐项对照与许可说明见 [ATTRIBUTION.md](ATTRIBUTION.md)。
