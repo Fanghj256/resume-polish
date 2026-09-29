@@ -1,9 +1,11 @@
-<!-- 用此片段替换 resume.html 中的 .header。照片是用户项目内的相对路径；保持基础 CSS 不变。 -->
+<!-- 用此片段替换 resume.html 中的 .header。照片是用户项目内的相对路径；
+     编辑层会自动把 <img> 设为不可编辑，这里再标注一次以防脚本未加载时被误删。
+     只有手机号与邮箱需要包 <span class="pii">，正文里的链接不要包。 -->
 <div class="header" style="align-items:center">
   <div class="header-left" style="min-width:0;max-width:calc(100% - 32mm)">
     <div class="name">{{name}}</div>
-    <div class="contact">{{phone}}<span class="sep">|</span>{{email}}</div>
+    <div class="contact"><span class="pii">{{phone}}</span><span class="sep">|</span><span class="pii">{{email}}</span></div>
     <div class="target" style="font-size:13.2pt;font-weight:700;margin-top:7px">意向岗位：{{target_position}}</div>
   </div>
-  <img src="{{portrait_relative_path}}" alt="本人商务照" style="width:25.5mm;height:34mm;object-fit:cover;object-position:center;flex-shrink:0">
+  <img src="{{portrait_relative_path}}" alt="本人商务照" contenteditable="false" style="width:25.5mm;height:34mm;object-fit:cover;object-position:center;flex-shrink:0">
 </div>

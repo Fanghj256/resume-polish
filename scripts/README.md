@@ -24,7 +24,7 @@ python -m pip install pymupdf
 ## 制作与导出
 
 1. 复制 `templates/resume.html` 到用户项目，如 `简历投递/公司_岗位/制作源文件/简历.html`。
-2. 填写真实内容，按经历增删整块项目。基础 CSS 保持不变。有照片时用 `templates/header-with-photo.html` 替换页首，将照片存于项目自己的 `assets/` 并使用相对路径。
+2. 填写真实内容，按经历增删整块项目。基础 CSS 保持不变。模板已带浏览器编辑层（`<style id="editor-layer">`、工具栏、`.stage`/`.doc` 包裹、末尾 `<script>`），填写时只替换 `#doc` 里的内容块，其余保持原样，详见 [浏览器内改稿](../references/html-editor-layer.md)。有照片时用 `templates/header-with-photo.html` 替换页首，将照片存于项目自己的 `assets/` 并使用相对路径。
 3. 运行：
 
 ```bash
@@ -39,6 +39,19 @@ node scripts/render_pdf.mjs --html="/path/to/简历.html" --out="/path/to/投递
 python scripts/extract_pdf.py "/path/to/投递文件/候选人姓名_目标岗位_简历_目标公司.pdf" --out="/path/to/PDF检查"
 ```
 
+## 单页量尺与编辑层自检
+
+```bash
+node scripts/measure_layout.mjs --html="/path/to/制作源文件/简历.html"
+node scripts/smoke_editor.mjs --html="/path/to/制作源文件/简历.html"
+```
+
+`measure_layout.mjs` 逐条打印每个 bullet、技能行和项目标题的毫米高度与估算行数，并给出单页余量。压回单页时用它决定删哪一行，不要靠猜；余量口径与浏览器编辑层右上角的「只剩 Xmm」一致（`297 −（内容底 − 页顶 + 9mm）`）。`render_pdf.mjs` 写进 `layout-check.json` 的 `bottomSpaceMm` 是内容底到纸张底，含这 9mm，不要当余量用。
+
+`smoke_editor.mjs` 检查编辑层是否正常：JS 报错、工具栏按钮、编辑态、单页余量读数、照片已加载且不可删除、隐私遮罩（含 `?privacy=1`）、打印时是否隐藏。任一项不通过就以非零码退出，可直接用于交付前检查。
+
+两个脚本与 `render_pdf.mjs` 共用 `browser.mjs`：启动 Chromium，失败时回退本机 Chrome/Edge（或用 `RESUME_BROWSER_PATH` 指定），并拦掉一切外部请求。
+
 ## 常见问题
 
 | 情况 | 下一步 |
@@ -48,6 +61,10 @@ python scripts/extract_pdf.py "/path/to/投递文件/候选人姓名_目标岗�
 | 超出一页或横向溢出 | 优先删重复与缩短长句，再调整项目数量；保持字号与边距 |
 | 页面明显留白 | 按岗位补问个人行动、取舍和交付；没有更多事实就保留适度留白 |
 | 中文缺字 | 补齐中文字体再导出，并查看实际 PDF 页面图 |
+| 浏览器里改完，PDF 还是旧的 | 「写回源文件」只改这份 HTML；点「导出 PDF」或重跑 `render_pdf.mjs` 后投递件才更新 |
+| 交付的 HTML 没有工具栏 | 正文替换时删掉了编辑层，按 [浏览器内改稿](../references/html-editor-layer.md) 补回模板结构 |
+| 隐私遮罩没盖住联系方式 | 手机号和邮箱要包 `<span class="pii">`；正文里的 URL 不要包，否则两端对齐的换行会变 |
+| 「写回源文件」不可用 | Firefox/Safari 没有 File System Access，会自动回退成下载改后 HTML；Chrome/Edge 打开可直接写回 |
 | 没有 Node/运行权限 | 先完成内容；由支持脚本的 Agent 或本机环境导出，不假称已生成 PDF |
 
 ## 虚构演示

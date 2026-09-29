@@ -1,0 +1,6 @@
+# 统一用 LF，避免 Windows 上 autocrlf 造成整树换行符抖动
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.pdf binary
+*.zip binary

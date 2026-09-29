@@ -10,6 +10,7 @@ resumes/
 private/
 个人资料/
 简历投递/
+_tmp_final/
 *.pdf
 *.zip
 *.log

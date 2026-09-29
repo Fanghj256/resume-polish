@@ -180,16 +180,106 @@
     white-space: nowrap;
   }
 </style>
+<!-- ===== 编辑层：仅浏览器里可见，打印/导出 PDF 时自动隐藏；不改动上方模板样式 ===== -->
+<style id="editor-layer">
+  .toolbar {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 9;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 16px;
+    background: rgba(255, 255, 255, 0.96);
+    border-bottom: 1px solid #dfe4e9;
+    font: 13px/1.4 "Microsoft YaHei", "PingFang SC", sans-serif;
+    color: #26313c;
+  }
+  .toolbar .sp { flex: 1; }
+  .toolbar button {
+    font: inherit;
+    font-size: 13px;
+    line-height: 1;
+    padding: 7px 13px;
+    border: 1px solid #c6ced6;
+    border-radius: 5px;
+    background: #fff;
+    color: #26313c;
+    cursor: pointer;
+  }
+  .toolbar button:hover { background: #f2f5f8; }
+  .toolbar button[aria-pressed="true"] { background: #1c1c1e; border-color: #1c1c1e; color: #fff; }
+  .toolbar .hint { color: #7a848e; font-size: 12px; }
+
+  /* 格式工具条：仅编辑态出现 */
+  .fmt { display: none; gap: 5px; align-items: center; padding-left: 8px; margin-left: 4px; border-left: 1px solid #dfe4e9; }
+  body.editing .fmt { display: flex; }
+  .fmt button { min-width: 32px; padding: 6px 9px; text-align: center; }
+  .fmt button[data-cmd="bold"] { font-weight: 700; }
+  .fmt button[data-cmd="italic"] { font-style: italic; font-family: Georgia, serif; }
+  .fmt button[data-cmd="underline"] { text-decoration: underline; }
+  .fmt button[data-cmd="removeFormat"],
+  .fmt button[data-cmd="undo"],
+  .fmt button[data-cmd="redo"] { min-width: 0; font-weight: 400; }
+  .fmt button.on { background: #e8eef5; border-color: #9db4cc; color: #1c1c1e; }
+
+  /* 单页余量指示：仅编辑态出现 */
+  .pagefit { display: none; font-size: 12px; color: #5c6874; white-space: nowrap; }
+  body.editing .pagefit { display: inline; }
+  .pagefit.tight { color: #8a6100; font-weight: 600; }
+  .pagefit.over { color: #b3261e; font-weight: 600; }
+
+  /* 舞台：屏幕上给工具栏留位置；打印时还原 */
+  .stage { padding: 64px 16px 48px; }
+
+  /* 隐私遮罩 */
+  body.privacy .pii { background: #e3e8ec; color: transparent !important; border-radius: 1.5pt; }
+  body.privacy .header img { filter: blur(6px); }
+
+  /* 编辑态 */
+  body.editing .page { outline: 1px dashed #b9c4cf; outline-offset: 6px; }
+  [contenteditable="true"]:focus { outline: none; }
+
+  @media print {
+    .toolbar { display: none !important; }
+    .stage { padding: 0 !important; zoom: 1 !important; }
+    .page { outline: none !important; box-shadow: none; }
+  }
+</style>
 </head>
 <body>
-  <div class="page">
+
+<!-- ===== 编辑层：浏览器里改稿用，打印/导出 PDF 时自动隐藏；不改动上方模板样式 ===== -->
+<div class="toolbar">
+  <button id="btn-edit" type="button">开启编辑</button>
+  <button id="btn-priv" type="button">隐藏隐私</button>
+  <button id="btn-print" type="button">导出 PDF</button>
+  <button id="btn-write" type="button">写回源文件</button>
+  <button id="btn-save" type="button">另存改后 HTML</button>
+  <span class="fmt" id="fmt">
+    <button type="button" data-cmd="bold" title="加粗（Ctrl+B）">B</button>
+    <button type="button" data-cmd="italic" title="斜体（Ctrl+I）">I</button>
+    <button type="button" data-cmd="underline" title="下划线（Ctrl+U）">U</button>
+    <button type="button" data-cmd="removeFormat" title="清除选中文字的格式">清除格式</button>
+    <button type="button" data-cmd="undo" title="撤销（Ctrl+Z）">撤销</button>
+    <button type="button" data-cmd="redo" title="重做（Ctrl+Y）">重做</button>
+  </span>
+  <span class="sp"></span>
+  <span class="pagefit" id="pagefit"></span>
+  <span class="hint" id="hint">点「开启编辑」即可直接在页面内改字</span>
+</div>
+
+<div class="stage" id="stage" style="zoom: 1;">
+<div class="page">
+  <div class="doc" id="doc">
 
 
 
 <div class="header" style="align-items:center">
   <div class="header-left" style="min-width:0;max-width:calc(100% - 32mm)">
     <div class="name">示例姓名</div>
-    <div class="contact">电话待填写<span class="sep">|</span>candidate@example.com</div>
+    <div class="contact"><span class="pii">电话待填写</span><span class="sep">|</span><span class="pii">candidate@example.com</span></div>
     <div class="target" style="font-size:13.2pt;font-weight:700;margin-top:7px">意向岗位：产品经理</div>
   </div>
   <img src="portrait-placeholder.svg" alt="本人商务照" style="width:25.5mm;height:34mm;object-fit:cover;object-position:center;flex-shrink:0">
@@ -297,5 +387,224 @@
     </div>
 
   </div>
+</div>
+</div>
+
+<script>
+(function(){
+  var doc    = document.getElementById('doc');
+  var stage  = document.getElementById('stage');
+  var hint   = document.getElementById('hint');
+  var bEdit  = document.getElementById('btn-edit');
+  var bPriv  = document.getElementById('btn-priv');
+  var bPrt   = document.getElementById('btn-print');
+  var bSave  = document.getElementById('btn-save');
+  var bWrite = document.getElementById('btn-write');
+  var fmtEl  = document.getElementById('fmt');
+  var fitEl  = document.getElementById('pagefit');
+  var pageEl = document.querySelector('.page');
+  var lastRange = null;
+
+  /* 照片设为不可编辑：避免误删照片、也避免编辑态里拖出占位框 */
+  doc.querySelectorAll('img').forEach(function(img){ img.setAttribute('contenteditable', 'false'); });
+
+  /* --- 隐私模式：?privacy=1 时默认开启 --- */
+  var q = new URLSearchParams(location.search);
+  function setPrivacy(on){
+    document.body.classList.toggle('privacy', on);
+    bPriv.setAttribute('aria-pressed', String(on));
+    bPriv.textContent = on ? '显示隐私' : '隐藏隐私';
+  }
+  setPrivacy(q.get('privacy') === '1');
+  bPriv.addEventListener('click', function(){
+    setPrivacy(!document.body.classList.contains('privacy'));
+  });
+
+  /* --- 编辑模式 --- */
+  function setEdit(on){
+    document.body.classList.toggle('editing', on);
+    doc.setAttribute('contenteditable', on ? 'true' : 'false');
+    doc.spellcheck = false;
+    bEdit.setAttribute('aria-pressed', String(on));
+    bEdit.textContent = on ? '完成编辑' : '开启编辑';
+    hint.textContent = on ? '选中文字后用 B / I / U，也可用 Ctrl+B；右侧实时显示单页余量' : '点「开启编辑」即可直接在页面内改字';
+    if(on){ doc.focus(); } else { window.getSelection().removeAllRanges(); }
+    updateFit();
+  }
+  setEdit(false);
+  bEdit.addEventListener('click', function(){
+    setEdit(!document.body.classList.contains('editing'));
+  });
+
+  /* --- 导出 PDF：调用浏览器打印（工具栏自动隐藏） --- */
+  bPrt.addEventListener('click', function(){ window.print(); });
+
+  /* --- 保存：写回源文件（File System Access，Chrome/Edge）或另存一份 --- */
+  function cleanHtml(){
+    var clone = document.documentElement.cloneNode(true);
+    var b = clone.querySelector('body');
+    if(b){ b.className = b.className.replace(/\b(editing|privacy)\b/g, '').replace(/\s+/g, ' ').trim(); }
+    var d = clone.querySelector('#doc');
+    if(d){ d.removeAttribute('spellcheck'); }
+    clone.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); });
+    clone.querySelectorAll('.toolbar button').forEach(function(btn){
+      btn.removeAttribute('aria-pressed');
+      if(btn.id === 'btn-edit') btn.textContent = '开启编辑';
+      if(btn.id === 'btn-priv') btn.textContent = '隐藏隐私';
+    });
+    var fit = clone.querySelector('#pagefit');
+    if(fit){ fit.textContent = ''; fit.className = 'pagefit'; }
+    var h = clone.querySelector('#hint');
+    if(h){ h.textContent = '点「开启编辑」即可直接在页面内改字'; }
+    return '<!DOCTYPE html>\n' + clone.outerHTML + '\n';
+  }
+  function downloadHtml(prefix){
+    var name = (document.title || '简历').replace(/[\\/:*?"<>|]/g, '-').trim() + '-改后.html';
+    var blob = new Blob([cleanHtml()], { type: 'text/html;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+    hint.textContent = (prefix ? prefix + '，' : '') + '已下载 ' + name + '；替换 制作源文件/简历.html 后再跑导出命令';
+  }
+  bSave.addEventListener('click', function(){ downloadHtml(''); });
+
+  /* 写回源文件：第一次点先选定 制作源文件/简历.html，之后一键覆盖（不产生副本）。
+     写完仍要点「导出 PDF」或跑导出命令，投递件才会更新。 */
+  var fileHandle = null;
+  function writeBack(){
+    if(typeof window.showSaveFilePicker !== 'function'){ downloadHtml('当前浏览器不支持直接写回'); return; }
+    if(fileHandle){ doWrite(); return; }
+    window.showSaveFilePicker({
+      suggestedName: '简历.html',
+      types: [{ description: 'HTML 文件', accept: { 'text/html': ['.html'] } }]
+    }).then(function(h){ fileHandle = h; doWrite(); }).catch(function(e){
+      if(e && e.name === 'AbortError'){ hint.textContent = '已取消写回（要选的是 制作源文件/简历.html，覆盖它）'; return; }
+      downloadHtml('写回失败（' + ((e && e.message) || e) + '）');
+    });
+  }
+  function doWrite(){
+    fileHandle.createWritable().then(function(w){
+      return w.write(cleanHtml()).then(function(){ return w.close(); });
+    }).then(function(){
+      hint.textContent = '已于 ' + new Date().toTimeString().slice(0, 5) + ' 写回 ' + fileHandle.name + '；点「导出 PDF」或跑导出命令后，投递件才会更新';
+    }).catch(function(e){
+      if(e && e.name === 'NotAllowedError'){
+        fileHandle = null;
+        hint.textContent = '写入权限已过期，请再点一次「写回源文件」并重新选择文件';
+        return;
+      }
+      hint.textContent = '写入失败：' + ((e && e.message) || e);
+    });
+  }
+  bWrite.addEventListener('click', writeBack);
+
+  /* ============ 编辑辅助：格式工具条 / 纯文本粘贴 / 单页余量 ============ */
+
+  /* 记住选中的位置：点工具条按钮前后都可能丢选区，留一份兜底 */
+  function rememberRange(){
+    var s = window.getSelection();
+    if(s && s.rangeCount && doc.contains(s.anchorNode)){
+      lastRange = s.getRangeAt(0).cloneRange();
+    }
+  }
+  function restoreRange(){
+    if(!lastRange) return;
+    var s = window.getSelection();
+    s.removeAllRanges();
+    s.addRange(lastRange);
+  }
+  document.addEventListener('selectionchange', function(){
+    rememberRange();
+    syncFmt();
+  });
+
+  /* 选中位置当前是否是加粗/斜体/下划线，用来点亮按钮（和 Word 一样） */
+  function syncFmt(){
+    if(!document.body.classList.contains('editing')) return;
+    fmtEl.querySelectorAll('button[data-cmd]').forEach(function(b){
+      var on = false;
+      try { on = document.queryCommandState(b.dataset.cmd); } catch(e) {}
+      b.classList.toggle('on', !!on);
+    });
+  }
+
+  /* 用 mousedown 而不是 click：click 会让按钮抢走焦点、选区随之丢失 */
+  fmtEl.addEventListener('mousedown', function(e){
+    var b = e.target.closest('button[data-cmd]');
+    if(!b) return;
+    e.preventDefault();
+    runCmd(b.dataset.cmd);
+  });
+  /* 键盘激活（Tab 到按钮后回车）走 click，此时 detail 为 0 */
+  fmtEl.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-cmd]');
+    if(b && e.detail === 0) runCmd(b.dataset.cmd);
+  });
+
+  function runCmd(cmd){
+    if(!document.body.classList.contains('editing')) return;
+    restoreRange();
+    doc.focus();
+    /* 生成 <b>/<i>/<u> 标签而非内联 style —— 本模板的加粗规则挂在 b 上 */
+    try { document.execCommand('styleWithCSS', false, 'false'); } catch(e) {}
+    try { document.execCommand(cmd, false, null); } catch(e) {}
+    rememberRange();
+    syncFmt();
+    updateFit();
+  }
+
+  /* 从 Word/WPS 粘贴时只取纯文本，避免带入外部字体字号把版式顶开 */
+  doc.addEventListener('paste', function(e){
+    if(!document.body.classList.contains('editing')) return;
+    var t = (e.clipboardData || window.clipboardData).getData('text/plain');
+    if(t == null) return;
+    e.preventDefault();
+    document.execCommand('insertText', false, t.replace(/\r\n?/g, '\n'));
+    updateFit();
+  });
+
+  /* 单页余量：本简历硬性一页；用 .page 宽度（=210mm）当比例尺，不受缩放影响。
+     可用高度 = 内容底 − 页面顶（含 10.5mm 顶边距） + 9mm 底边距。 */
+  function updateFit(){
+    if(!pageEl || !fitEl) return;
+    var pr = pageEl.getBoundingClientRect();
+    if(!pr.width) return;
+    var mm = pr.width / 210;
+    var top = pr.top, bottom = top;
+    pageEl.querySelectorAll('.header, .section').forEach(function(el){
+      var r = el.getBoundingClientRect();
+      if(r.bottom > bottom) bottom = r.bottom;
+    });
+    var padBottom = parseFloat(getComputedStyle(pageEl).paddingBottom) || 0;
+    var usedMm = (bottom - top + padBottom) / mm;
+    var remainMm = 297 - usedMm;
+    fitEl.classList.remove('tight', 'over');
+    if(remainMm < 0){
+      fitEl.classList.add('over');
+      fitEl.textContent = '⚠ 已超出单页 ' + Math.abs(remainMm).toFixed(0) + 'mm，导出会分成两页';
+    } else if(remainMm < 10){
+      fitEl.classList.add('tight');
+      fitEl.textContent = '单页 A4 · 只剩 ' + remainMm.toFixed(0) + 'mm，再加一行就可能超出';
+    } else {
+      fitEl.textContent = '单页 A4 · 还剩 ' + remainMm.toFixed(0) + 'mm';
+    }
+  }
+  doc.addEventListener('input', updateFit);
+  window.addEventListener('resize', updateFit);
+
+  /* --- 窄屏自适应缩放（打印时还原 1:1） --- */
+  function fit(){
+    var w = stage.clientWidth - 32;
+    var s = Math.min(1, w / (210 / 25.4 * 96));
+    stage.style.zoom = s;
+    updateFit();
+  }
+  window.addEventListener('resize', fit);
+  fit();
+})();
+</script>
+
 </body>
 </html>

@@ -1,29 +1,10 @@
 // Render a filled, local resume HTML without modifying the Skill template.
-import { chromium } from 'playwright';
 import { PDFDocument } from 'pdf-lib';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { arg, launch, openLocalPage } from './browser.mjs';
 
-const arg = (key, fallback) => process.argv.find(a => a.startsWith(`--${key}=`))?.slice(key.length + 3) ?? fallback;
 const clean = value => value.replace(/[<>:"/\\|?*\x00-\x1f]/g, '_').trim() || '简历';
-
-async function launch() {
-  if (process.env.RESUME_BROWSER_PATH) return chromium.launch({ executablePath: process.env.RESUME_BROWSER_PATH });
-  try { return await chromium.launch(); }
-  catch (firstError) {
-    const candidates = process.platform === 'darwin'
-      ? ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge']
-      : process.platform === 'win32'
-        ? [process.env.PROGRAMFILES, process.env['PROGRAMFILES(X86)'], process.env.LOCALAPPDATA].filter(Boolean)
-          .flatMap(base => [path.join(base, 'Google/Chrome/Application/chrome.exe'), path.join(base, 'Microsoft/Edge/Application/msedge.exe')])
-        : ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser'];
-    for (const executablePath of candidates) {
-      try { await fs.access(executablePath); return await chromium.launch({ executablePath }); } catch {}
-    }
-    throw new Error(`无法启动浏览器。请运行 npx playwright install chromium，或设置 RESUME_BROWSER_PATH。\n${firstError.message}`);
-  }
-}
 
 async function main() {
   const input = arg('html');
@@ -38,13 +19,7 @@ async function main() {
   const suffix = clean(arg('suffix', '通用'));
   const browser = await launch();
   try {
-    const context = await browser.newContext({ viewport: { width: 1240, height: 1754 }, deviceScaleFactor: 2 });
-    // The resume should use local assets; no external upload or remote image/font request.
-    await context.route('**/*', route => /^(file:|data:|blob:)/.test(route.request().url()) ? route.continue() : route.abort());
-    const page = await context.newPage();
-    await page.goto(pathToFileURL(htmlPath).href, { waitUntil: 'networkidle' });
-    await page.emulateMedia({ media: 'print' });
-    await page.evaluate(() => document.fonts.ready);
+    const page = await openLocalPage(browser, htmlPath, { deviceScaleFactor: 2, print: true });
     const metrics = await page.evaluate(async () => {
       await Promise.all([...document.images].map(img => img.decode().catch(() => {})));
       const container = document.querySelector('.page');
