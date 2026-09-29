@@ -19,6 +19,12 @@ npx playwright install chromium
 python -m pip install pymupdf
 ```
 
+需要把衣柜、打分表导成 Word／Excel 时，再装两个：
+
+```bash
+python -m pip install python-docx openpyxl
+```
+
 字体栈见 [版式规格](../layout-spec.md)。macOS 通常使用 PingFang SC，Windows 通常使用 Microsoft YaHei；没有中文字体的 Linux 环境先安装 Noto Sans SC 或思源黑体，检查实际导出，不能用空框替代中文。
 
 ## 制作与导出
@@ -51,6 +57,17 @@ node scripts/smoke_editor.mjs --html="/path/to/制作源文件/简历.html"
 `smoke_editor.mjs` 检查编辑层是否正常：JS 报错、工具栏按钮、编辑态、单页余量读数、照片已加载且不可删除、隐私遮罩（含 `?privacy=1`）、打印时是否隐藏。任一项不通过就以非零码退出，可直接用于交付前检查。
 
 两个脚本与 `render_pdf.mjs` 共用 `browser.mjs`：启动 Chromium，失败时回退本机 Chrome/Edge（或用 `RESUME_BROWSER_PATH` 指定），并拦掉一切外部请求。
+
+## 文档导出：衣柜 → Word、打分表 → Excel
+
+```bash
+python scripts/md_to_docx.py --md="/path/to/简历衣柜/简历衣柜.md" --out="/path/to/简历衣柜/简历衣柜.docx"
+python scripts/md_tables_to_xlsx.py --md="/path/to/02_经历打分.md" --out="/path/to/02_经历打分.xlsx"
+```
+
+**markdown 是唯一可编辑源**，docx／xlsx 都是单向导出的视图：改内容要么改 md，要么让 Agent 按「记衣柜：…」回写，然后重新导出——不要反向手工编辑 docx 再当数据源。
+
+`md_tables_to_xlsx.py` 会把 markdown 里每张表导成一个工作表（表名取最近的标题，表头加粗并冻结首行，列宽按内容自适应）；标题里含「采用／是否」的列会自动加「是,否」下拉，用户可以只在 Excel 里勾选、排序，改完直接回传。
 
 ## 常见问题
 

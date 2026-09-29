@@ -51,6 +51,12 @@ try {
   }));
   await page.locator('#btn-priv').click();
 
+  await page.locator('#btn-copy').click();
+  await page
+    .waitForFunction(() => /同步投递件/.test(document.getElementById('hint').textContent), null, { timeout: 5000 })
+    .catch(() => {});
+  const copyHint = await page.evaluate(() => document.getElementById('hint').textContent.trim());
+
   await page.goto(page.url().split('?')[0] + '?privacy=1', { waitUntil: 'networkidle' });
   const privacyByQuery = await page.evaluate(() => document.body.classList.contains('privacy'));
 
@@ -79,6 +85,7 @@ try {
     '隐私遮罩包住 2 处联系方式': before.piiCount === 2 && !before.piiHasUrl,
     '隐藏隐私按钮生效': privacy.on && privacy.masked === 'rgba(0, 0, 0, 0)' && privacy.photoBlurred,
     '?privacy=1 默认开启': privacyByQuery,
+    '复制同步话术可用': /同步投递件/.test(copyHint),
     '打印时不带工具栏': print.toolbarHidden && print.stagePaddingZero && print.stageNoZoom,
   };
   const failed = Object.entries(checks).filter(([, ok]) => !ok).map(([name]) => name);

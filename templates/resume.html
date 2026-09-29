@@ -272,6 +272,7 @@
   <button id="btn-print" type="button">导出 PDF</button>
   <button id="btn-write" type="button">写回源文件</button>
   <button id="btn-save" type="button">另存改后 HTML</button>
+  <button id="btn-copy" type="button" title="复制一句「同步投递件」，粘给 Agent 即可重新导出 PDF">复制给 Agent 的话</button>
   <span class="fmt" id="fmt">
     <button type="button" data-cmd="bold" title="加粗（Ctrl+B）">B</button>
     <button type="button" data-cmd="italic" title="斜体（Ctrl+I）">I</button>
@@ -327,12 +328,13 @@
       </div>
     </div>
 
-    <!-- ============== 核心项目经历 ==============
+    <!-- ============== 实践与项目经历 ==============
+         区块名固定为「实践与项目经历」，不要写成「核心项目经历」。
          按岗位相关性排序，同等相关性按时间倒序；按证据调整条数。
          需要更多/更少项目时，整块复制或删除 <div class="item">…</div>。
     -->
     <div class="section">
-      <div class="section-title">核心项目经历</div>
+      <div class="section-title">实践与项目经历</div>
 
       <div class="item">
         <div class="item-head">
@@ -506,6 +508,37 @@
     hint.textContent = (prefix ? prefix + '，' : '') + '已下载 ' + name + '；替换 制作源文件/简历.html 后再跑导出命令';
   }
   bSave.addEventListener('click', function(){ downloadHtml(''); });
+
+  /* --- 复制一句「同步投递件」：粘给 Agent，它就能重新导出 PDF --- */
+  var bCopy = document.getElementById('btn-copy');
+  function selfPath(){
+    var p = decodeURIComponent(location.pathname || '');
+    return p.replace(/^\//, '') || '简历.html';
+  }
+  function copySyncMessage(){
+    var msg = '同步投递件：我用浏览器改过这份 HTML（' + selfPath() + '），请重新导出 PDF 并核对仍是单页。';
+    function done(ok){
+      hint.textContent = ok
+        ? '已复制，粘给 Agent 即可：' + msg
+        : '复制失败，请手动告诉 Agent：同步投递件（' + selfPath() + '）';
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(msg).then(function(){ done(true); }, function(){ done(false); });
+      return;
+    }
+    try{
+      var ta = document.createElement('textarea');
+      ta.value = msg;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = document.execCommand('copy');
+      ta.remove();
+      done(ok);
+    }catch(e){ done(false); }
+  }
+  bCopy.addEventListener('click', copySyncMessage);
 
   /* 写回源文件：第一次点先选定 制作源文件/简历.html，之后一键覆盖（不产生副本）。
      写完仍要点「导出 PDF」或跑导出命令，投递件才会更新。 */
