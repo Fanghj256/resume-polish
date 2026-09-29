@@ -35,5 +35,5 @@
 ## 四、许可
 
 - **本仓库原创部分**（第二节列出的文件）采用 MIT 许可，见 [LICENSE](LICENSE)，可自由使用、修改、再分发。
-- **沿用上游的部分**（第一节列出的文件）版权归原作者 `xupengli406-del` 所有，**不在本仓库 MIT 许可的覆盖范围内**：上游 `resume-builder` 仓库未附许可证文件（默认保留所有权利），其 `american-business-headshot` 为 MIT、许可原文随附在 `references/american-business-headshot/LICENSE`。
-- 因此：使用、修改本仓库的**原创部分**没有限制；再分发其中沿用自上游的文件前，请先与原作者确认授权。
+- **沿用上游的部分**（第一节列出的文件）版权归原作者 `xupengli406-del` 所有。本仓库作者已与原作者沟通并获其同意（2026-09-29）。这部分**不在本仓库 MIT 许可的覆盖范围内**：上游 `resume-builder` 仓库未附许可证文件（默认保留所有权利），其 `american-business-headshot` 为 MIT、许可原文随附在 `references/american-business-headshot/LICENSE`。
+- 因此：使用、修改本仓库的**原创部分**没有限制；再分发其中沿用自上游的文件前，仍需另行取得原作者许可。范围速览另见 [NOTICE.md](NOTICE.md)。
