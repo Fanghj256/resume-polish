@@ -1,6 +1,6 @@
 # 版式规格手册
 
-`resume-builder` 的视觉锁定标准。任何编辑必须**沿用 templates/resume.html 内的 CSS 块**，下面的规格是给 agent 校对、给未来重构时还原版式用的，不是手动重新实现版式的指南。
+`resume-polish` 的视觉锁定标准。任何编辑必须**沿用 templates/resume.html 内的 CSS 块**，下面的规格是给 agent 校对、给未来重构时还原版式用的，不是手动重新实现版式的指南。
 
 ---
 

@@ -1,9 +1,9 @@
 ---
-name: resume-builder
+name: resume-polish
 description: 根据真实经历和目标岗位制作或修改中文单页 A4 简历，沿用黑白极简版式，展开核心项目，支持本人商务照和 PDF 导出。适用于写简历、改简历、岗位定制和旧简历更新。
 ---
 
-# Resume Builder
+# Resume Polish
 
 用当前求职者自己的材料，制作黑白极简、信息充分的单页 A4 简历。固定视觉来自 [模板](templates/resume.html)，内容根据实际 JD/HC 与经历定制。示例只展示排版，不是任何求职者的事实来源。
 

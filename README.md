@@ -1,4 +1,4 @@
-# Resume Builder · 同款单页简历 Skill
+# Resume Polish · 五步单页简历 Skill
 
 把旧简历、零散经历或一段口述，整理成针对目标岗位的中文简历：**单页 A4、黑白极简排版、核心项目充分展开、可加入本人商务照。**
 
@@ -6,7 +6,7 @@
 
 ## 怎么用（五步）
 
-1. [下载 Skill ZIP](https://github.com/xupengli406-del/resume-builder/releases/latest/download/resume-builder.zip)，解压后得到 `resume-builder` 文件夹。
+1. [下载 Skill ZIP](https://github.com/Fanghj256/resume-polish/releases/latest/download/resume-polish.zip)，解压后得到 `resume-polish` 文件夹。
 2. 把整个文件夹交给能读取文件、执行脚本的 AI Agent，或安装到该 Agent 的 Skills 目录。仅上传 `SKILL.md` 会缺少模板和脚本；普通纯聊天窗口未必能直接导出文件。
 3. **先给它一个资料目录**（比如 `我的简历/`）。你的衣柜、素材、投递件全部放在这里，**不放进 Skill 文件夹**——Skill 可以升级覆盖，个人数据不能混进去。
 4. 然后按下面五步走。第一步做一次，第 2–5 步每投一个岗位跑一遍：
@@ -25,7 +25,7 @@
 先建简历衣柜。我的经历在这个文件夹里：【路径／已上传附件】，另外补充几点：【想到什么说什么，记不清的直接跳过】
 ```
 
-**没有旧简历也能开始**：直接口述即可，它会先把事实整理成衣柜，再集中问缺口。赶时间也可以一句话让它先跑：`用 resume-builder 帮我做简历，材料在【路径】，目标是【岗位＋JD】`。
+**没有旧简历也能开始**：直接口述即可，它会先把事实整理成衣柜，再集中问缺口。赶时间也可以一句话让它先跑：`用 resume-polish 帮我做简历，材料在【路径】，目标是【岗位＋JD】`。
 
 照片跟着第 4 步走：有合适的本人照片就放进简历；只有生活照时，按内置商务照流程引导制作；岗位要求无照片或你不想放，都会照办。
 

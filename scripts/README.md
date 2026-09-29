@@ -63,6 +63,7 @@ node scripts/smoke_editor.mjs --html="/path/to/制作源文件/简历.html"
 ```bash
 python scripts/md_to_docx.py --md="/path/to/简历衣柜/简历衣柜.md" --out="/path/to/简历衣柜/简历衣柜.docx"
 python scripts/md_tables_to_xlsx.py --md="/path/to/02_经历打分.md" --out="/path/to/02_经历打分.xlsx"
+python scripts/md_tables_to_xlsx.py --md="简历投递/投递台账.md" --out="简历投递/投递台账.xlsx"
 ```
 
 **markdown 是唯一可编辑源**，docx／xlsx 都是单向导出的视图：改内容要么改 md，要么让 Agent 按「记衣柜：…」回写，然后重新导出——不要反向手工编辑 docx 再当数据源。
