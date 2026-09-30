@@ -131,12 +131,12 @@ li::before { width: 3.5px; height: 3.5px; background: #1c1c1e; top: 0.55em; }
 ### 技能与荣誉 kv-row
 
 ```
-display: grid
-grid-template-columns: 76px 1fr
-column-gap: 10px
+display: flex
+gap: 9px
 ```
 
-两列：标签（76px 固定，粗体且 `white-space: nowrap`） / 内容。`Vibe Coding` 等标签必须保持单行。
+两列：标签（`flex: 0 0 auto`，粗体且 `white-space: nowrap`，按自身文字宽度收拢） / 内容（`flex: 1 1 auto`）。
+**不要给标签列设固定宽度**——旧版是 `grid-template-columns: 76px 1fr` + `column-gap: 10px`，而 5 字标签（如「荣誉证书：」）只有约 60px 宽、6 字标签约 72px，固定列会让短标签后空出约 26px（≈7mm），看起来像多打了一个空格。`Vibe Coding` 等标签必须保持单行。
 
 ---
 
@@ -202,7 +202,7 @@ pdf: {
 - [ ] 每个 section 的标题都是黑底白字
 - [ ] bullet 是方块不是圆点
 - [ ] 所有 item 的"角色 + 时间"都对齐右侧
-- [ ] 技能与荣誉左侧标签均保持单行
+- [ ] 技能与荣誉左侧标签均保持单行，且标签紧贴内容（标签后不得留下固定列宽造成的空白）
 - [ ] 文字与装饰保持黑/白/灰；照片允许保留原色
 - [ ] 没有任何 {{占位符}} 漏渲染
 - [ ] 交付的 HTML 编辑层可用：工具栏出现、余量有读数、打印预览里没有工具栏

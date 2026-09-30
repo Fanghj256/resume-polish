@@ -181,18 +181,24 @@
   }
 
   /* ==== Honor & skills ==== */
+  /* 标签列按自身文字宽度收拢，不预留固定列宽：旧版用 grid 固定 76px 列，
+     而「荣誉证书：」这类 5 字标签只有约 60px 宽，冒号后面会空出约 26px（≈7mm），
+     看起来像多打了一个空格。 */
   .kv-row {
-    display: grid;
-    grid-template-columns: 76px 1fr;
-    column-gap: 10px;
+    display: flex;
+    gap: 9px;
     padding: 1px 0;
     font-size: 8.95pt;
     line-height: 1.4;
   }
   .kv-row > div:first-child {
+    flex: 0 0 auto;
     font-weight: 700;
     color: #1c1c1e;
     white-space: nowrap;
+  }
+  .kv-row > div:last-child {
+    flex: 1 1 auto;
   }
 </style>
 <!-- ===== 编辑层：仅浏览器里可见，打印/导出 PDF 时自动隐藏；不改动上方模板样式 ===== -->
