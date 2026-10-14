@@ -2,6 +2,10 @@
 name: resume-polish
 description: 用真实经历做中文单页 A4 简历：建立与更新「简历衣柜」（结构化经历档案，说「记衣柜：…」即可追加）、拆解目标岗位 JD、经历匹配度打分、生成可在浏览器编辑的 HTML 与投递 PDF、投递前质检。适用于写简历、改简历、岗位定制、旧简历更新、经历建档、JD 拆解、简历质检与投递文件整理。
 when_to_use: 用户要写或改简历、要建或更新「简历衣柜」（说「记衣柜：…」或「衣柜体检」）、要拆解岗位 JD、要给经历打匹配度分、要生成或导出简历 PDF／可编辑 HTML、说「同步投递件」、要做投递前质检，或提到按公司与岗位整理投递文件时使用。
+metadata:
+  version: "1.0.0"
+  license: "MIT（本仓库原创部分；沿用上游部分见 NOTICE.md）"
+  repository: "https://github.com/Fanghj256/resume-polish"
 ---
 
 # Resume Polish
