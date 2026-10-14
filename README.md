@@ -6,35 +6,49 @@
 
 ## 怎么用（五步）
 
-**装到你的 Agent 里，三选一：**
+**装到你的 Agent 里（推荐用 clone 装，之后一条命令就能更新）：**
 
-**① 让 Agent 自己装**（最省事）——直接对它说：
+**① 克隆到个人技能目录**（推荐）
+
+```bash
+cd ~/.zcode/skills                                  # 换成你的 Agent 的个人技能目录
+git clone https://github.com/Fanghj256/resume-polish.git resume-polish
+cd resume-polish
+npm ci && npx playwright install chromium           # 导出 PDF 必需
+python -m pip install pymupdf python-docx openpyxl  # 处理已有 PDF、导出 Word／Excel 时用
+```
+
+**② 让 Agent 替你装**（懒人版，效果同上）——直接对它说：
 
 ```text
 帮我安装这个 Skill：https://github.com/Fanghj256/resume-polish
-装到你的 Skills 目录，并装好依赖：npm ci、npx playwright install chromium、pip install pymupdf python-docx openpyxl
+用 git clone 装到你的个人技能目录（不要用 ZIP 解压），并装好依赖：npm ci、npx playwright install chromium、pip install pymupdf python-docx openpyxl
 ```
 
-**② 下载 ZIP**：[下载 Skill ZIP](https://github.com/Fanghj256/resume-polish/releases/latest/download/resume-polish.zip)，解压得到 `resume-polish` 文件夹，放进 Agent 的 Skills 目录。
+**③ 下载 ZIP**（网络不好时的兜底）：[下载 Skill ZIP](https://github.com/Fanghj256/resume-polish/releases/latest/download/resume-polish.zip)，解压得到 `resume-polish` 文件夹，放进技能目录。**代价是不能自动更新**，以后要重新下载覆盖。
 
-**③ git clone**：
+**装好之后怎么更新**
 
 ```bash
-git clone https://github.com/Fanghj256/resume-polish
-# 再放进 Skills 目录，例如 ~/.zcode/skills/resume-polish（各 Agent 的目录不同）
+cd ~/.zcode/skills/resume-polish && python scripts/update_self.py
 ```
 
-**三条注意**：
+它会检查这是不是 git 克隆、有没有未提交的改动、再 `git pull --ff-only`，并且**只在 `package.json` 变了时**才装依赖。如果是 ZIP 装的，它会告诉你怎么手动更新。也可以直接对 Agent 说「帮我更新 resume-polish」。
+
+**国内网络**：`github.com` 时通时断，clone 或更新失败不是仓库坏了——先看 [国内网络与镜像](references/mirror-and-network.md)（含镜像用法与自建镜像的办法）。
+
+**两条注意**：
 
 - **依赖要装，否则出不了 PDF**：仓库里不含 `node_modules`。导出 PDF 需要 `npm ci` ＋ `npx playwright install chromium`；处理已有 PDF、生成 Word／Excel 还需要 `pip install pymupdf python-docx openpyxl`。装依赖前的部分（建档、拆 JD、打分、写条目）不受影响。命令见 [scripts/README.md](scripts/README.md)。
 - **只给 Agent `SKILL.md` 一个文件不行**：模板和脚本都在文件夹里，缺了就跑不出简历。
-- **网络**：部分网络环境下 `github.com` 时通时断，clone 或下载失败就换个时间、或走代理；ZIP 与 clone 的内容完全一致。
 
 普通纯聊天窗口（不能读写文件、不能执行命令）装不了，只能帮你写内容、出不了 PDF。
 
 ### 然后：定一个资料目录，按五步走
 
-**先给它一个资料目录**（比如 `我的简历/`）。衣柜、素材、投递件全部放这里，**不放进 Skill 文件夹**——Skill 会升级覆盖、也可能被公开，个人数据不能混进去。
+**资料目录默认放 `~/我的简历/`**（Windows 上通常是 `C:\Users\<你>\我的简历`）——衣柜、素材、投递件全在这里，**不放进技能文件夹**。Agent 首次对话就会把它建好，并明确告诉你放在哪；想换地方随时说一句。
+
+**为什么要分开**：技能会被升级覆盖、也可能被公开，而衣柜是你全部经历的唯一底稿（丢了没法重跑，跟 PPT 的中间文件不一样），所以它必须待在一个不会被整体删除、也不会被误传出去的地方。
 
 第一步做一次，第 2–5 步每投一个岗位跑一遍：
 

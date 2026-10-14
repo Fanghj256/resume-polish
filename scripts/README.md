@@ -58,6 +58,18 @@ node scripts/smoke_editor.mjs --html="/path/to/制作源文件/简历.html"
 
 两个脚本与 `render_pdf.mjs` 共用 `browser.mjs`：启动 Chromium，失败时回退本机 Chrome/Edge（或用 `RESUME_BROWSER_PATH` 指定），并拦掉一切外部请求。
 
+## 更新这个 Skill
+
+```bash
+python scripts/update_self.py              # 拉取最新版；必要时同步依赖
+python scripts/update_self.py --skip-npm   # 只拉代码
+python scripts/update_self.py --remote upstream
+```
+
+它依次做四件事：① 确认这是 git 克隆（ZIP／复制安装的会给出**手动更新指引**，不硬来）；② 确认已跟踪文件没有未提交的改动（有就停下，避免冲突）；③ `git pull --ff-only`（只做快进）；④ **只有 `package.json` 变了**才跑 `npm ci`。
+
+只有标准库依赖，Python 3.9+ 即可；`git` 必须可用。国内网络克隆／更新失败时，见 [国内网络与镜像](../references/mirror-and-network.md)。
+
 ## 文档导出：衣柜 → Word、打分表 → Excel
 
 ```bash
