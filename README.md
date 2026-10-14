@@ -10,8 +10,11 @@
 
 **① 克隆到个人技能目录**（推荐）
 
+> **下面以 ZCode 举例**：它的个人技能目录是 `~/.zcode/skills`。**别的 Agent 目录不一样**，把第一行换成你自己 Agent 的技能目录即可，其余命令不变；不确定就问它一句「你的个人技能目录在哪」。
+> 如果你的 Agent 没有"技能目录"这个概念，那克隆到任意位置也行——**skill 本质就是一个含 `SKILL.md` 的文件夹**，让 Agent 读那个文件夹就能用，只是少了"自动触发"这一层。
+
 ```bash
-cd ~/.zcode/skills                                  # 换成你的 Agent 的个人技能目录
+cd ~/.zcode/skills                                  # ← ZCode 的技能目录；换成你的
 git clone https://github.com/Fanghj256/resume-polish.git resume-polish
 cd resume-polish
 npm ci && npx playwright install chromium           # 导出 PDF 必需
@@ -30,7 +33,7 @@ python -m pip install pymupdf python-docx openpyxl  # 处理已有 PDF、导出 
 **装好之后怎么更新**
 
 ```bash
-cd ~/.zcode/skills/resume-polish && python scripts/update_self.py
+cd ~/.zcode/skills/resume-polish && python scripts/update_self.py   # 路径换成你实际安装的位置
 ```
 
 它会检查这是不是 git 克隆、有没有未提交的改动、再 `git pull --ff-only`，并且**只在 `package.json` 变了时**才装依赖。如果是 ZIP 装的，它会告诉你怎么手动更新。也可以直接对 Agent 说「帮我更新 resume-polish」。

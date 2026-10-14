@@ -40,7 +40,7 @@ NOT_A_REPO = """这份 resume-polish 不是 git 克隆，无法自动更新。
      用到 Word／Excel 导出时再 pip install pymupdf python-docx openpyxl
   4. 想以后一条命令更新：改用 git clone 安装（推荐）
 
-推荐装法（一次到位）：
+推荐装法（一次到位，路径以 ZCode 举例，换成你 Agent 的技能目录）：
   cd ~/.zcode/skills
   git clone https://github.com/Fanghj256/resume-polish.git
   cd resume-polish && npm ci && npx playwright install chromium
