@@ -7,6 +7,7 @@
   - For repeating sections (项目 / 工作), copy the entire <div class="item">…</div>
     block as needed. The CSS handles spacing automatically.
   - Bullets must start with `<b>能力标签：</b>` (see ../style-guide.md).
+  - 页首不放「意向岗位」行：岗位名只用于 <title>（导出 PDF 的文档标题）。正文里不写求职意向。
   - Sort core projects by target relevance, then by recency.
   - KEEP the editor layer as is: <style id="editor-layer">, the .toolbar markup,
     the .stage / .doc wrappers and the trailing <script>. It is screen-only,
@@ -74,21 +75,6 @@
     color: #c8c8c8;
     margin: 0 8px;
   }
-  .header-right {
-    text-align: right;
-  }
-  .header-right .label {
-    font-size: 8.7pt;
-    color: #6b6b6f;
-    letter-spacing: 5px;
-    margin-bottom: 3px;
-  }
-  .header-right .target {
-    font-size: 13.2pt;
-    font-weight: 700;
-    color: #1c1c1e;
-  }
-
   /* ==== Section title (black block + white text) ==== */
   .section {
     margin-top: 8px;
@@ -303,10 +289,6 @@
         <div class="contact">
           <span class="pii">{{phone}}</span><span class="sep">|</span><span class="pii">{{email}}</span>
         </div>
-      </div>
-      <div class="header-right">
-        <div class="label">意 向 岗 位</div>
-        <div class="target">{{target_position}}</div>
       </div>
     </div>
 
