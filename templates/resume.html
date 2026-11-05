@@ -4,11 +4,13 @@
   RULES:
   - Do NOT modify the <style> block. The CSS is calibrated for A4 single-page.
   - Replace ONLY the {{placeholders}} in the <body>.
-  - For repeating sections (项目 / 工作), copy the entire <div class="item">…</div>
+  - For repeating sections (实习 / 实践 / 校园), copy the entire <div class="item">…</div>
     block as needed. The CSS handles spacing automatically.
-  - Bullets must start with `<b>能力标签：</b>` (see ../style-guide.md).
+  - Bullets start with `<b>能力标签：</b>`, then follow the five elements:
+    动词 → 场景/问题 → 方案 → 量化结果 (see ../style-guide.md).
   - 页首不放「意向岗位」行：岗位名只用于 <title>（导出 PDF 的文档标题）。正文里不写求职意向。
-  - Sort core projects by target relevance, then by recency.
+  - Section order is fixed: 教育经历 → 实习经历 → 实践经历 → 校园经历 → 其他信息.
+    实习经历是篇幅重心；实践经历按岗位相关性排序，同等相关性按时间倒序。
   - KEEP the editor layer as is: <style id="editor-layer">, the .toolbar markup,
     the .stage / .doc wrappers and the trailing <script>. It is screen-only,
     hidden in print, and verified not to change the exported PDF.
@@ -292,22 +294,9 @@
       </div>
     </div>
 
-    <!-- ============== 核心优势 ==============
-         按真实优势填写 2–3 条；不强制需要比赛或奖项。
-         每条以 <b>标签：</b> 起手。
-    -->
+    <!-- ============== 教育经历 ============== -->
     <div class="section">
-      <div class="section-title">核心优势</div>
-      <ul class="bullets">
-        <li><b>{{advantage_1_label}}：</b>{{advantage_1_body}}</li>
-        <li><b>{{advantage_2_label}}：</b>{{advantage_2_body}}</li>
-        <li><b>{{advantage_3_label}}：</b>{{advantage_3_body}}</li>
-      </ul>
-    </div>
-
-    <!-- ============== 教育背景 ============== -->
-    <div class="section">
-      <div class="section-title">教育背景</div>
+      <div class="section-title">教育经历</div>
       <div class="edu-row">
         <div>{{edu_school}}</div>
         <div>{{edu_major}}</div>
@@ -316,100 +305,126 @@
       </div>
     </div>
 
-    <!-- ============== 实践与项目经历 ==============
-         区块名固定为「实践与项目经历」，不要写成「核心项目经历」。
-         按岗位相关性排序，同等相关性按时间倒序；按证据调整条数。
-         需要更多/更少项目时，整块复制或删除 <div class="item">…</div>。
+    <!-- ============== 实习经历 ==============
+         篇幅重心：每段实习 2–4 条，建议 3 条；按时间倒序。
+         每条＝<b>标签：</b> + 动词开头的完整叙述（场景/问题 → 方案 → 量化结果）。
+         需要更多/更少实习时，整块复制或删除 <div class="item">…</div>。
     -->
     <div class="section">
-      <div class="section-title">实践与项目经历</div>
+      <div class="section-title">实习经历</div>
 
       <div class="item">
         <div class="item-head">
-          <div class="item-title">{{project_1_title}}</div>
-          <div class="item-meta"><span class="role">{{project_1_role}}</span>{{project_1_period}}</div>
+          <div class="item-title">{{intern_1_org}}</div>
+          <div class="item-meta"><span class="role">{{intern_1_role}}</span>{{intern_1_period}}</div>
         </div>
         <ul class="bullets">
-          <li><b>{{project_1_b1_label}}：</b>{{project_1_b1_body}}</li>
-          <li><b>{{project_1_b2_label}}：</b>{{project_1_b2_body}}</li>
-          <li><b>{{project_1_b3_label}}：</b>{{project_1_b3_body}}</li>
+          <li><b>{{intern_1_b1_label}}：</b>{{intern_1_b1_body}}</li>
+          <li><b>{{intern_1_b2_label}}：</b>{{intern_1_b2_body}}</li>
+          <li><b>{{intern_1_b3_label}}：</b>{{intern_1_b3_body}}</li>
         </ul>
       </div>
 
       <div class="item">
         <div class="item-head">
-          <div class="item-title">{{project_2_title}}</div>
-          <div class="item-meta"><span class="role">{{project_2_role}}</span>{{project_2_period}}</div>
+          <div class="item-title">{{intern_2_org}}</div>
+          <div class="item-meta"><span class="role">{{intern_2_role}}</span>{{intern_2_period}}</div>
         </div>
         <ul class="bullets">
-          <li><b>{{project_2_b1_label}}：</b>{{project_2_b1_body}}</li>
-          <li><b>{{project_2_b2_label}}：</b>{{project_2_b2_body}}</li>
-          <li><b>{{project_2_b3_label}}：</b>{{project_2_b3_body}}</li>
+          <li><b>{{intern_2_b1_label}}：</b>{{intern_2_b1_body}}</li>
+          <li><b>{{intern_2_b2_label}}：</b>{{intern_2_b2_body}}</li>
+          <li><b>{{intern_2_b3_label}}：</b>{{intern_2_b3_body}}</li>
         </ul>
       </div>
 
       <div class="item">
         <div class="item-head">
-          <div class="item-title">{{project_3_title}}</div>
-          <div class="item-meta"><span class="role">{{project_3_role}}</span>{{project_3_period}}</div>
+          <div class="item-title">{{intern_3_org}}</div>
+          <div class="item-meta"><span class="role">{{intern_3_role}}</span>{{intern_3_period}}</div>
         </div>
         <ul class="bullets">
-          <li><b>{{project_3_b1_label}}：</b>{{project_3_b1_body}}</li>
-          <li><b>{{project_3_b2_label}}：</b>{{project_3_b2_body}}</li>
-          <li><b>{{project_3_b3_label}}：</b>{{project_3_b3_body}}</li>
-        </ul>
-      </div>
-
-      <!-- 可选第 4 个项目（短项目），通常 2 条 bullets。不需要时整块删除。 -->
-      <div class="item">
-        <div class="item-head">
-          <div class="item-title">{{project_4_title}}</div>
-          <div class="item-meta"><span class="role">{{project_4_role}}</span>{{project_4_period}}</div>
-        </div>
-        <ul class="bullets">
-          <li><b>{{project_4_b1_label}}：</b>{{project_4_b1_body}}</li>
-          <li><b>{{project_4_b2_label}}：</b>{{project_4_b2_body}}</li>
+          <li><b>{{intern_3_b1_label}}：</b>{{intern_3_b1_body}}</li>
+          <li><b>{{intern_3_b2_label}}：</b>{{intern_3_b2_body}}</li>
         </ul>
       </div>
     </div>
 
-    <!-- ============== 工作经历 ============== -->
+    <!-- ============== 实践经历 ==============
+         项目、个人作品、社会实践放这里；按岗位相关性排序，同等相关性按时间倒序。
+         通常 2 个主项目（每个 2–3 条），其余 1 条或合并。
+    -->
     <div class="section">
-      <div class="section-title">工作经历</div>
+      <div class="section-title">实践经历</div>
 
       <div class="item">
         <div class="item-head">
-          <div class="item-title">{{job_1_company}}</div>
-          <div class="item-meta"><span class="role">{{job_1_role}}</span>{{job_1_period}}</div>
+          <div class="item-title">{{practice_1_title}}</div>
+          <div class="item-meta"><span class="role">{{practice_1_role}}</span>{{practice_1_period}}</div>
         </div>
         <ul class="bullets">
-          <li><b>{{job_1_b1_label}}：</b>{{job_1_b1_body}}</li>
-          <li><b>{{job_1_b2_label}}：</b>{{job_1_b2_body}}</li>
+          <li><b>{{practice_1_b1_label}}：</b>{{practice_1_b1_body}}</li>
+          <li><b>{{practice_1_b2_label}}：</b>{{practice_1_b2_body}}</li>
+          <li><b>{{practice_1_b3_label}}：</b>{{practice_1_b3_body}}</li>
         </ul>
       </div>
 
       <div class="item">
         <div class="item-head">
-          <div class="item-title">{{job_2_company}}</div>
-          <div class="item-meta"><span class="role">{{job_2_role}}</span>{{job_2_period}}</div>
+          <div class="item-title">{{practice_2_title}}</div>
+          <div class="item-meta"><span class="role">{{practice_2_role}}</span>{{practice_2_period}}</div>
         </div>
         <ul class="bullets">
-          <li><b>{{job_2_b1_label}}：</b>{{job_2_b1_body}}</li>
-          <li><b>{{job_2_b2_label}}：</b>{{job_2_b2_body}}</li>
+          <li><b>{{practice_2_b1_label}}：</b>{{practice_2_b1_body}}</li>
+          <li><b>{{practice_2_b2_label}}：</b>{{practice_2_b2_body}}</li>
         </ul>
       </div>
     </div>
 
-    <!-- ============== 技能与荣誉 ============== -->
+    <!-- ============== 校园经历 ==============
+         学生工作、社团、志愿服务放这里；每条 1–2 条 bullet，不展开成长篇。
+    -->
     <div class="section">
-      <div class="section-title">技能与荣誉</div>
+      <div class="section-title">校园经历</div>
+
+      <div class="item">
+        <div class="item-head">
+          <div class="item-title">{{campus_1_title}}</div>
+          <div class="item-meta"><span class="role">{{campus_1_role}}</span>{{campus_1_period}}</div>
+        </div>
+        <ul class="bullets">
+          <li><b>{{campus_1_b1_label}}：</b>{{campus_1_b1_body}}</li>
+          <li><b>{{campus_1_b2_label}}：</b>{{campus_1_b2_body}}</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-head">
+          <div class="item-title">{{campus_2_title}}</div>
+          <div class="item-meta"><span class="role">{{campus_2_role}}</span>{{campus_2_period}}</div>
+        </div>
+        <ul class="bullets">
+          <li><b>{{campus_2_b1_label}}：</b>{{campus_2_b1_body}}</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ============== 其他信息 ==============
+         三行固定：技能证书 / 优势特点 / 个人兴趣爱好。
+         优势特点写与岗位挂钩的特质＋可验证的经验，不写"抗压、责任心强"这类空话。
+    -->
+    <div class="section">
+      <div class="section-title">其他信息</div>
       <div class="kv-row">
-        <div>荣誉证书：</div>
-        <div>{{honors}}</div>
+        <div>技能证书：</div>
+        <div>{{certs}}</div>
       </div>
       <div class="kv-row">
-        <div>核心技能：</div>
-        <div>{{skills_keywords}}</div>
+        <div>优势特点：</div>
+        <div>{{traits}}</div>
+      </div>
+      <div class="kv-row">
+        <div>兴趣爱好：</div>
+        <div>{{interests}}</div>
       </div>
     </div>
 
