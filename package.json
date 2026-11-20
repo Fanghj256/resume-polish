@@ -5,6 +5,11 @@
   "description": "Portable single-page Chinese resume skill",
   "type": "module",
   "engines": { "node": ">=20" },
+  "scripts": {
+    "check": "node --check scripts/browser.mjs && node --check scripts/check_demo.mjs && node --check scripts/measure_layout.mjs && node --check scripts/render_pdf.mjs && node --check scripts/smoke_editor.mjs",
+    "check:demo": "node scripts/check_demo.mjs",
+    "test": "npm run check && npm run check:demo"
+  },
   "dependencies": {
     "pdf-lib": "1.17.1",
     "playwright": "1.62.1"

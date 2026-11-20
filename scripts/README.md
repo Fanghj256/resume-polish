@@ -58,6 +58,18 @@ node scripts/smoke_editor.mjs --html="/path/to/制作源文件/简历.html"
 
 两个脚本与 `render_pdf.mjs` 共用 `browser.mjs`：启动 Chromium，失败时回退本机 Chrome/Edge（或用 `RESUME_BROWSER_PATH` 指定），并拦掉一切外部请求。
 
+## 维护模板
+
+改完 `templates/resume.html` 或 `examples/demo.html` 后，先跑：
+
+```bash
+npm run check:demo
+```
+
+它比较两份 HTML 的 `.header` 间距和五个 section 的顺序，并确认 demo 里没有残留
+`{{placeholder}}`、编辑层还在。demo 是给人看的版式样例，不是手改的独立副本；
+模板改了，demo 要跟着改，否则 README 里的演示会和实际交付的模板对不上。
+
 ## 更新这个 Skill
 
 ```bash
