@@ -10,6 +10,8 @@ metadata:
 
 # Resume Polish
 
+**中文** | [English](SKILL.en.md)
+
 用当前求职者自己的材料，制作黑白极简、信息充分的单页 A4 简历。固定视觉来自 [模板](templates/resume.html)，内容根据实际 JD/HC 与经历定制。示例只展示排版，不是任何求职者的事实来源。
 
 从零开始或每投一个新岗位时，按 [工作流](references/workflow.md) 的五步走：**建立简历衣柜 → 拆解 JD → 匹配打分 → 生成简历 → 投递前质检**，五个环节的提示词见 [提示词库](references/prompts.md)。动手前先看用户资料目录里有没有 `简历衣柜/简历衣柜.md`——有就直接取事实，不要重新问一遍经历。

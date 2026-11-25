@@ -2,7 +2,7 @@
 
 **English** | [中文](README.md)
 
-> **Note:** this skill is built for the Chinese job market. Its prompts, templates, and resume output are in Chinese; this README is the English guide to what it does and how to install it.
+> **Note:** this skill is built for the Chinese job market. Its prompts, templates, and resume output are in Chinese; this README is the English guide to what it does and how to install it. A full English reference of the skill instructions is at [`SKILL.en.md`](SKILL.en.md).
 
 Turn an old resume, scattered experience, or a rambling voice memo into a Chinese-language resume tailored to a target role: **one A4 page, a minimal black-and-white layout, core projects given room to breathe, and an optional professional headshot.**
 
